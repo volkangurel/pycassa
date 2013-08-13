@@ -11,15 +11,11 @@ except:
     has_subprocess = False
 
 try:
-    from ez_setup import use_setuptools
-    use_setuptools()
-except ImportError:
-    pass
-
-try:
     from setuptools import setup
 except ImportError:
-    from distutils.core import setup
+    from distribute_setup import use_setuptools
+    use_setuptools()
+    from setuptools import setup
 
 from distutils.cmd import Command
 
@@ -118,11 +114,12 @@ setup(
       description = 'Python client library for Apache Cassandra',
       long_description = long_description,
       url = 'http://github.com/pycassa/pycassa',
-      keywords = 'cassandra client db distributed thrift',
+      keywords = ['pycassa', 'cassandra', 'client', 'driver', 'db', 'distributed', 'thrift'],
       packages = ['pycassa',
                   'pycassa.cassandra',
                   'pycassa.logging',
                   'pycassa.contrib'],
+      tests_require = ['nose'],
       install_requires = ['thrift'],
       py_modules=['ez_setup'],
       scripts=['pycassaShell'],

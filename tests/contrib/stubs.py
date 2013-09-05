@@ -65,7 +65,7 @@ class TestColumnFamilyStub(unittest.TestCase):
         for test_cf in (cf, cf_stub):
             assert_raises(NotFoundException, test_cf.get, key)
             ts = test_cf.insert(key, columns)
-            assert_true(isinstance(ts, (int, long)))
+            assert_true(isinstance(ts, int))
             assert_equal(test_cf.get(key), columns)
 
     def test_insert_get_column_start_and_finish_reversed(self):
@@ -74,7 +74,7 @@ class TestColumnFamilyStub(unittest.TestCase):
         for test_cf in (cf, cf_stub):
             assert_raises(NotFoundException, test_cf.get, key)
             ts = test_cf.insert(key, columns)
-            assert_true(isinstance(ts, (int, long)))
+            assert_true(isinstance(ts, int))
             row = test_cf.get(key, column_reversed=True)
 
     def test_insert_get_column_start_and_finish(self):
@@ -83,7 +83,7 @@ class TestColumnFamilyStub(unittest.TestCase):
         for test_cf in (cf, cf_stub):
             assert_raises(NotFoundException, test_cf.get, key)
             ts = test_cf.insert(key, columns)
-            assert_true(isinstance(ts, (int, long)))
+            assert_true(isinstance(ts, int))
             assert_equal(test_cf.get(key, column_start='b', column_finish='c'), {'b': 'val2', 'c': 'val3'})
 
     def test_insert_get_column_start_and_reversed(self):
@@ -92,7 +92,7 @@ class TestColumnFamilyStub(unittest.TestCase):
         for test_cf in (cf, cf_stub):
             assert_raises(NotFoundException, test_cf.get, key)
             ts = test_cf.insert(key, columns)
-            assert_true(isinstance(ts, (int, long)))
+            assert_true(isinstance(ts, int))
             assert_equal(test_cf.get(key, column_start='b', column_reversed=True), {'b': 'val2', 'a': 'val1'})
 
     def test_insert_get_column_count(self):
@@ -101,7 +101,7 @@ class TestColumnFamilyStub(unittest.TestCase):
         for test_cf in (cf, cf_stub):
             assert_raises(NotFoundException, test_cf.get, key)
             ts = test_cf.insert(key, columns)
-            assert_true(isinstance(ts, (int, long)))
+            assert_true(isinstance(ts, int))
             assert_equal(test_cf.get(key, column_count=3), {'a': 'val1', 'b': 'val2', 'c': 'val3'})
 
     def test_insert_get_default_column_count(self):
@@ -192,7 +192,7 @@ class TestColumnFamilyStub(unittest.TestCase):
             assert_equal(rows[key], dict([key_value for key_value in keys_and_values][:100]))
 
     def insert_insert_get_indexed_slices(self):
-        columns = {'birthdate': 1L}
+        columns = {'birthdate': 1}
 
         keys = set()
         for i in range(1, 4):
@@ -200,7 +200,7 @@ class TestColumnFamilyStub(unittest.TestCase):
             indexed_cf_stub.insert('key%d' % i, columns)
             keys.add('key%d' % i)
 
-        expr = index.create_index_expression(column_name='birthdate', value=1L)
+        expr = index.create_index_expression(column_name='birthdate', value=1)
         clause = index.create_index_clause([expr])
 
         for test_indexed_cf in (indexed_cf, indexed_cf_stub):

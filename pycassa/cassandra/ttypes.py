@@ -205,12 +205,12 @@ class Column(object):
         break
       if fid == 1:
         if ftype == TType.STRING:
-          self.name = iprot.readString();
+          self.name = iprot.readBytes();
         else:
           iprot.skip(ftype)
       elif fid == 2:
         if ftype == TType.STRING:
-          self.value = iprot.readString();
+          self.value = iprot.readBytes();
         else:
           iprot.skip(ftype)
       elif fid == 3:
@@ -2454,7 +2454,7 @@ class ColumnDef(object):
         break
       if fid == 1:
         if ftype == TType.STRING:
-          self.name = iprot.readString();
+          self.name = iprot.readBytes();
         else:
           iprot.skip(ftype)
       elif fid == 2:

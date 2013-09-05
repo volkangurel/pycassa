@@ -3324,7 +3324,7 @@ class get_slice_args(object):
     oprot.writeStructBegin('get_slice_args')
     if self.key is not None:
       oprot.writeFieldBegin('key', TType.STRING, 1)
-      oprot.writeString(self.key)
+      oprot.writeBytes(self.key)
       oprot.writeFieldEnd()
     if self.column_parent is not None:
       oprot.writeFieldBegin('column_parent', TType.STRUCT, 2)

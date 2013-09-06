@@ -91,30 +91,30 @@ def get_composite_packer(typestr=None, composite_type=None):
 
     def pack_composite(items, slice_start=None):
         last_index = len(items) - 1
-        s = ''
+        b = b''
         for i, (item, packer) in enumerate(zip(items, packers)):
-            eoc = '\x00'
+            eoc = b'\x00'
             if isinstance(item, tuple):
                 item, inclusive = item
                 if inclusive:
                     if slice_start:
-                        eoc = '\xff'
+                        eoc = b'\xff'
                     elif slice_start is False:
-                        eoc = '\x01'
+                        eoc = b'\x01'
                 else:
                     if slice_start:
-                        eoc = '\x01'
+                        eoc = b'\x01'
                     elif slice_start is False:
-                        eoc = '\xff'
+                        eoc = b'\xff'
             elif i == last_index:
                 if slice_start:
-                    eoc = '\xff'
+                    eoc = b'\xff'
                 elif slice_start is False:
-                    eoc = '\x01'
+                    eoc = b'\x01'
 
             packed = packer(item)
-            s += ''.join((len_packer(len(packed)), packed, eoc))
-        return s
+            b += b''.join((len_packer(len(packed)), packed, eoc))
+        return b
 
     return pack_composite
 
@@ -313,8 +313,8 @@ def packer_for(typestr):
 
     else: # data_type == 'BytesType' or something unknown
         def pack_bytes(v, _=None):
-            if not isinstance(v, str):
-                raise TypeError("A str or unicode value was expected, " +
+            if not isinstance(v, bytes):
+                raise TypeError("A bytes value was expected, " +
                                 "but %s was received instead (%s)"
                                 % (v.__class__.__name__, str(v)))
             return v
@@ -384,7 +384,7 @@ def encode_int(x, *args):
             x >>= 8
         out.append(struct.pack('B', 0xff & x))
         if x > 127:
-            out.append('\x00')
+            out.append(b'\x00')
     else:
         x = -1 - x
         out = []
@@ -396,7 +396,7 @@ def encode_int(x, *args):
         else:
             out.append(struct.pack('>H', 0xffff & ~x))
 
-    return ''.join(reversed(out))
+    return b''.join(reversed(out))
 
 def decode_int(term, *args):
     if term != b"":

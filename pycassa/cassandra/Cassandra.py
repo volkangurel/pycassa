@@ -5590,7 +5590,7 @@ class batch_mutate_args(object):
       oprot.writeFieldBegin('mutation_map', TType.MAP, 1)
       oprot.writeMapBegin(TType.STRING, TType.MAP, len(self.mutation_map))
       for kiter255,viter256 in self.mutation_map.items():
-        oprot.writeString(kiter255)
+        oprot.writeBytes(kiter255)
         oprot.writeMapBegin(TType.STRING, TType.LIST, len(viter256))
         for kiter257,viter258 in viter256.items():
           oprot.writeString(kiter257)

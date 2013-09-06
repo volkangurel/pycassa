@@ -235,11 +235,11 @@ class Column(object):
     oprot.writeStructBegin('Column')
     if self.name is not None:
       oprot.writeFieldBegin('name', TType.STRING, 1)
-      oprot.writeString(self.name)
+      oprot.writeBytes(self.name)
       oprot.writeFieldEnd()
     if self.value is not None:
       oprot.writeFieldBegin('value', TType.STRING, 2)
-      oprot.writeString(self.value)
+      oprot.writeBytes(self.value)
       oprot.writeFieldEnd()
     if self.timestamp is not None:
       oprot.writeFieldBegin('timestamp', TType.I64, 3)
